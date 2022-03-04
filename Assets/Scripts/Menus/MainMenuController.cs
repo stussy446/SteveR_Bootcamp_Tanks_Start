@@ -13,8 +13,6 @@ namespace Tanks
         [SerializeField] private Button settingsButton;
         [SerializeField] private SettingsController settingsPopup;
 
-        private Action pendingAction;
-
         private void Start()
         {
             // TODO: Connect to photon server

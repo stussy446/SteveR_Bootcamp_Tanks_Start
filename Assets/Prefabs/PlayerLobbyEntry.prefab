@@ -451,9 +451,9 @@ MonoBehaviour:
   changeTeamButton: {fileID: 6139522611162770782}
   teamHolder: {fileID: 4806670278282352904}
   teamBackgrounds:
-  - {fileID: 21300000, guid: 7043c54926b20ef45af5f7348e2dcc4c, type: 3}
-  - {fileID: 21300000, guid: 7491a4e8767295b409ec7ee0eed9d694, type: 3}
   - {fileID: 21300000, guid: 188998fb92c40aa449b6b2c6543d714c, type: 3}
+  - {fileID: 21300000, guid: 7491a4e8767295b409ec7ee0eed9d694, type: 3}
+  - {fileID: 21300000, guid: 7043c54926b20ef45af5f7348e2dcc4c, type: 3}
   - {fileID: 21300000, guid: dbc60e1005c13ed468b680460013538d, type: 3}
 --- !u!1 &5153827826530360269
 GameObject:
