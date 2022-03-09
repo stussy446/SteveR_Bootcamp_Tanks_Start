@@ -1,0 +1,53 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace Tanks
+{
+    public class CreateLobbyPopup : MonoBehaviour
+    {
+        [SerializeField] private TMP_InputField lobbyNameInput;
+
+        [SerializeField] private Button enablePrivateLobbyButton;
+        [SerializeField] private Button disablePrivateLobbyButton;
+        [SerializeField] private Button createButton;
+        [SerializeField] private Button closeButton;
+
+        private bool IsPrivate => disablePrivateLobbyButton.gameObject.activeSelf;
+
+        private void OnCreateButtonClicked()
+        {
+            if (string.IsNullOrEmpty(lobbyNameInput.text)) return;
+
+            // TODO: Create room
+        }
+
+        private void OnCloseButtonClicked()
+        {
+            gameObject.SetActive(false);
+        }
+
+        private void Start()
+        {
+            createButton.onClick.AddListener(OnCreateButtonClicked);
+            closeButton.onClick.AddListener(OnCloseButtonClicked);
+            enablePrivateLobbyButton.onClick.AddListener(() => SetPasswordFields(true));
+            disablePrivateLobbyButton.onClick.AddListener(() => SetPasswordFields(false));
+        }
+
+        public void OnEnable()
+        {
+            lobbyNameInput.text = string.Empty;
+            lobbyNameInput.Select();
+            lobbyNameInput.ActivateInputField();
+
+            SetPasswordFields(false);
+        }
+
+        private void SetPasswordFields(bool isPrivate)
+        {
+            enablePrivateLobbyButton.gameObject.SetActive(!isPrivate);
+            disablePrivateLobbyButton.gameObject.SetActive(isPrivate);
+        }
+    }
+}
