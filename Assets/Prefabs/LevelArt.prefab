@@ -78,7 +78,7 @@ GameObject:
   - component: {fileID: 13647542}
   - component: {fileID: 13662192}
   - component: {fileID: 13668334}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cliff (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1090,7 +1090,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 474252}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boundaries
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1594,7 +1594,7 @@ GameObject:
   - component: {fileID: 13610854}
   - component: {fileID: 13602028}
   - component: {fileID: 13628582}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cliff (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3122,7 +3122,7 @@ GameObject:
   - component: {fileID: 13648614}
   - component: {fileID: 13616706}
   - component: {fileID: 13615596}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cliff (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7593,7 +7593,7 @@ GameObject:
   - component: {fileID: 13604480}
   - component: {fileID: 13601360}
   - component: {fileID: 13676930}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cliff
   m_TagString: Untagged
   m_Icon: {fileID: 0}
