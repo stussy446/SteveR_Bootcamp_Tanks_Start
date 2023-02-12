@@ -37,15 +37,15 @@ namespace Tanks
 
         private bool IsLocalPlayer => Equals(player, PhotonNetwork.LocalPlayer); // TODO: Get if this entry belongs to the local player
 
-        public void Setup()
-        {
-            // TODO: Store and update player information
+        //public void Setup()
+        //{
+        //    // TODO: Store and update player information
 
-            if (!IsLocalPlayer)
-                Destroy(changeTeamButton);
+        //    if (!IsLocalPlayer)
+        //        Destroy(changeTeamButton);
 
-            UpdateVisuals();
-        }
+        //    UpdateVisuals();
+        //}
 
         public void Setup(Player entryPlayer)
         {
