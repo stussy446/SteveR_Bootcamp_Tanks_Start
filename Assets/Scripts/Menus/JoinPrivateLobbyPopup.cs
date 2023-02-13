@@ -1,10 +1,12 @@
+using Photon.Pun;
+using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Tanks
 {
-    public class JoinPrivateLobbyPopup : MonoBehaviour
+    public class JoinPrivateLobbyPopup : MonoBehaviourPunCallbacks
     {
         [SerializeField] private TMP_InputField lobbyNameInput;
         [SerializeField] private Button enterButton;
@@ -16,11 +18,13 @@ namespace Tanks
             closeButton.onClick.AddListener(OnCloseButtonClicked);
         }
 
-        private void OnEnable()
+        public override void OnEnable()
         {
             lobbyNameInput.text = string.Empty;
             lobbyNameInput.Select();
             lobbyNameInput.ActivateInputField();
+
+            base.OnEnable();
         }
 
         private void OnCloseButtonClicked()
@@ -33,7 +37,14 @@ namespace Tanks
             if (string.IsNullOrEmpty(lobbyNameInput.text)) return;
             LoadingGraphics.Enable();
 
-            // TODO: Join target room
+            // Join target room
+            PhotonNetwork.JoinRoom(lobbyNameInput.text);
         }
+
+        public override void OnJoinRoomFailed(short returnCode, string message)
+        {
+            Debug.Log(message);
+        }
+
     }
 }

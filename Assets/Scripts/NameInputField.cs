@@ -6,7 +6,6 @@ using TMPro;
 
 public class NameInputField : MonoBehaviour
 { 
-    // Store the PlayerPref Key to avoid typos
     const string playerNamePrefKey = "PlayerName";
 
     /// <summary>
@@ -16,18 +15,14 @@ public class NameInputField : MonoBehaviour
     {
         string defaultName = string.Empty;
         TMP_InputField _inputField = this.GetComponent<TMP_InputField>();
-        Debug.Log(_inputField);
 
         if (_inputField != null)
         {
             if (PlayerPrefs.HasKey(playerNamePrefKey))
             {
-                Debug.Log("hello");
                 defaultName = PlayerPrefs.GetString(playerNamePrefKey);
                 _inputField.text = defaultName;
             }
-
-            Debug.Log("Hello");
         }
         PhotonNetwork.NickName = defaultName;
 

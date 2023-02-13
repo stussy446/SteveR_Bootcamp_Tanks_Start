@@ -22,11 +22,26 @@ namespace Tanks
             if (string.IsNullOrEmpty(lobbyNameInput.text)) return;
 
             // Create room
-            RoomOptions roomOptions = new RoomOptions
+            RoomOptions roomOptions;
+
+            if (IsPrivate)
             {
-                IsOpen = true,
-                MaxPlayers = 4
-            };
+                roomOptions = new RoomOptions
+                {
+                    IsOpen = true,
+                    MaxPlayers = 4,
+                    IsVisible = false
+                };
+            }
+            else
+            {
+                roomOptions = new RoomOptions
+                {
+                    IsOpen = true,
+                    MaxPlayers = 4
+                };
+            }
+          
             PhotonNetwork.CreateRoom(lobbyNameInput.text, roomOptions, TypedLobby.Default);
         }
 
