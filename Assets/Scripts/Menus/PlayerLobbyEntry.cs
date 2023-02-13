@@ -33,7 +33,15 @@ namespace Tanks
             }
         }
 
-        public bool IsPlayerReady { get; set; } // TODO: Update player ready status to other clients
+        public bool IsPlayerReady
+        {
+            get => player.CustomProperties.ContainsKey("IsReady") && (bool)player.CustomProperties["IsReady"];
+            set
+            {
+                Hashtable hash = new Hashtable { { "IsReady", value } };
+                player.SetCustomProperties(hash);
+            }
+        }
 
         private bool IsLocalPlayer => Equals(player, PhotonNetwork.LocalPlayer); // TODO: Get if this entry belongs to the local player
 
