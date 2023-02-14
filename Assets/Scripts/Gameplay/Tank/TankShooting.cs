@@ -46,25 +46,27 @@ namespace Tanks
             }
 
             aimSlider.value = minLaunchForce;
+            Aim();
 
             if (currentLaunchForce >= maxLaunchForce && !fired)
             {
                 currentLaunchForce = maxLaunchForce;
+                Aim();
                 Fire();
             }
             else if (Input.GetButtonDown(FIRE_BUTTON))
             {
                 fired = false;
                 currentLaunchForce = minLaunchForce;
-
+                Aim();
                 shootingAudio.clip = chargingClip;
                 shootingAudio.Play();
             }
             else if (Input.GetButton(FIRE_BUTTON) && !fired)
             {
                 currentLaunchForce += chargeSpeed * Time.deltaTime;
+                Aim();
 
-                aimSlider.value = currentLaunchForce;
             }
             else if (Input.GetButtonUp(FIRE_BUTTON) && !fired)
             {
@@ -98,6 +100,23 @@ namespace Tanks
             shootingAudio.clip = fireClip;
             shootingAudio.Play();
 
+        }
+
+        private void Aim()
+        {
+            // shows tank's aim slider to all clients
+            photonView.RPC
+                (
+                "Aim",
+                RpcTarget.All,
+                currentLaunchForce
+                );
+        }
+
+        [PunRPC]
+        private void Aim(float launchForce)
+        {
+            aimSlider.value = launchForce;
         }
     }
 }

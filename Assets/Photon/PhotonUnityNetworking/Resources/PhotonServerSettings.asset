@@ -43,6 +43,7 @@ MonoBehaviour:
   - AimSlider
   - Move
   - Turn
+  - Aim
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
