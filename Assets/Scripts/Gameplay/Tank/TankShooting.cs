@@ -46,32 +46,30 @@ namespace Tanks
             }
 
             aimSlider.value = minLaunchForce;
-            Aim();
 
             if (currentLaunchForce >= maxLaunchForce && !fired)
             {
                 currentLaunchForce = maxLaunchForce;
-                Aim();
                 Fire();
             }
             else if (Input.GetButtonDown(FIRE_BUTTON))
             {
                 fired = false;
                 currentLaunchForce = minLaunchForce;
-                Aim();
                 shootingAudio.clip = chargingClip;
                 shootingAudio.Play();
             }
             else if (Input.GetButton(FIRE_BUTTON) && !fired)
             {
                 currentLaunchForce += chargeSpeed * Time.deltaTime;
-                Aim();
 
             }
             else if (Input.GetButtonUp(FIRE_BUTTON) && !fired)
             {
                 Fire();
             }
+
+            Aim();
         }
 
         private void Fire()
