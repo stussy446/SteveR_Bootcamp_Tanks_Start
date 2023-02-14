@@ -127,6 +127,17 @@ namespace Tanks
             float turn = turnInputValue * turnSpeed * Time.deltaTime;
             Quaternion turnRotation = Quaternion.Euler(0f, turn, 0f);
 
+            photonView.RPC
+                (
+                "Turn",
+                RpcTarget.All,
+                turnRotation
+                );
+        }
+
+        [PunRPC]
+        private void Turn(Quaternion turnRotation)
+        {
             tankRigidbody.MoveRotation(tankRigidbody.rotation * turnRotation);
         }
     }
