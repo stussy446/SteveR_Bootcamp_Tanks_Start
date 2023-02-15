@@ -10,6 +10,7 @@ namespace Tanks
         private const string FIRE_BUTTON = "Fire1";
         private const string AIRSTRIKE_BUTTON = "Fire3";
 
+
         public Rigidbody shell;
         public GameObject airStrike;
         public Transform fireTransform;
@@ -58,11 +59,15 @@ namespace Tanks
         {
             if (Input.GetButtonDown(AIRSTRIKE_BUTTON))
             {
-                Vector3 mousePos = Input.mousePosition;
-                mousePos.z = 10f;
-                Vector3 spawnPos = Camera.main.ScreenToWorldPoint(mousePos);
+                RaycastHit hit; 
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                Instantiate(airStrike, spawnPos, Quaternion.identity);
+                if (Physics.Raycast(ray, out hit))
+                {
+             
+                    GameObject airstrikeInstance = Instantiate(airStrike, hit.point, Quaternion.identity);
+                    Destroy(airstrikeInstance, 1.5f);
+                }
             }
         }
 
