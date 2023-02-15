@@ -55,21 +55,6 @@ namespace Tanks
             HandleAirStrikeFire();
         }
 
-        private void HandleAirStrikeFire()
-        {
-            if (Input.GetButtonDown(AIRSTRIKE_BUTTON))
-            {
-                RaycastHit hit; 
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-                if (Physics.Raycast(ray, out hit))
-                {
-             
-                    GameObject airstrikeInstance = Instantiate(airStrike, hit.point, Quaternion.identity);
-                    Destroy(airstrikeInstance, 1.5f);
-                }
-            }
-        }
 
         private void HandleBasicFire()
         {
@@ -146,6 +131,34 @@ namespace Tanks
         private void Aim(float launchForce)
         {
             aimSlider.value = launchForce;
+        }
+
+        private void HandleAirStrikeFire()
+        {
+            if (Input.GetButtonDown(AIRSTRIKE_BUTTON))
+            {
+                RaycastHit hit; 
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+                if (Physics.Raycast(ray, out hit))
+                {
+                    photonView.RPC
+                        (
+                        "HandleAirStrike",
+                        RpcTarget.All,
+                        hit.point
+                        );
+                    //GameObject airstrikeInstance = Instantiate(airStrike, hit.point, Quaternion.identity);
+                    //Destroy(airstrikeInstance, 1.5f);
+                }
+            }
+        }
+
+        [PunRPC]
+        private void HandleAirStrike(Vector3 target)
+        {
+            GameObject airStrikeInstance = Instantiate(airStrike, target, Quaternion.identity);
+            Destroy(airStrikeInstance, 1.5f);
         }
     }
 }
