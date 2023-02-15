@@ -9,7 +9,7 @@ namespace Tanks
     {
         private const string FIRE_BUTTON = "Fire1";
         private const string AIRSTRIKE_BUTTON = "Fire3";
-        private const string BOUNDARIES_LAYERMASK = "Boundaries";
+        private const string BOUNDARIES_LAYER = "Boundaries";
 
         [Header("airstrike configs")]
         public GameObject airStrikePrefab;
@@ -143,17 +143,21 @@ namespace Tanks
                 RaycastHit hit; 
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                // sets layermask as everything except for the boundaries
-                boundariesLayerMask = ~LayerMask.GetMask(BOUNDARIES_LAYERMASK);
-
-                if (Physics.Raycast(ray, out hit, Mathf.Infinity, boundariesLayerMask))
+                if (Physics.Raycast(ray, out hit))
                 {
-                    photonView.RPC
-                        (
-                        "HandleAirStrike",
-                        RpcTarget.All,
-                        hit.point
-                        );
+                    if (LayerMask.LayerToName(hit.collider.gameObject.layer) == BOUNDARIES_LAYER)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        photonView.RPC
+                            (
+                            "HandleAirStrike",
+                            RpcTarget.All,
+                            hit.point
+                            );
+                    }
                 }
             }
         }
