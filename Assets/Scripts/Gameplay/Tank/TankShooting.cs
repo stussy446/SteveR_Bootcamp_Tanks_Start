@@ -1,4 +1,5 @@
 ﻿using Photon.Pun;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,8 +8,10 @@ namespace Tanks
     public class TankShooting : MonoBehaviour
     {
         private const string FIRE_BUTTON = "Fire1";
+        private const string AIRSTRIKE_BUTTON = "Fire3";
 
         public Rigidbody shell;
+        public GameObject airStrike;
         public Transform fireTransform;
         public Slider aimSlider;
         public AudioSource shootingAudio;
@@ -47,6 +50,24 @@ namespace Tanks
 
             aimSlider.value = minLaunchForce;
 
+            HandleBasicFire();
+            HandleAirStrikeFire();
+        }
+
+        private void HandleAirStrikeFire()
+        {
+            if (Input.GetButtonDown(AIRSTRIKE_BUTTON))
+            {
+                Vector3 mousePos = Input.mousePosition;
+                mousePos.z = 10f;
+                Vector3 spawnPos = Camera.main.ScreenToWorldPoint(mousePos);
+
+                Instantiate(airStrike, spawnPos, Quaternion.identity);
+            }
+        }
+
+        private void HandleBasicFire()
+        {
             if (currentLaunchForce >= maxLaunchForce && !fired)
             {
                 currentLaunchForce = maxLaunchForce;
@@ -54,10 +75,7 @@ namespace Tanks
             }
             else if (Input.GetButtonDown(FIRE_BUTTON))
             {
-                fired = false;
-                currentLaunchForce = minLaunchForce;
-                shootingAudio.clip = chargingClip;
-                shootingAudio.Play();
+                StartChargingShot();
             }
             else if (Input.GetButton(FIRE_BUTTON) && !fired)
             {
@@ -70,6 +88,14 @@ namespace Tanks
             }
 
             Aim();
+        }
+
+        private void StartChargingShot()
+        {
+            fired = false;
+            currentLaunchForce = minLaunchForce;
+            shootingAudio.clip = chargingClip;
+            shootingAudio.Play();
         }
 
         private void Fire()
