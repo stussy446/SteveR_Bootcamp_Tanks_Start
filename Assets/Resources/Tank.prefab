@@ -10657,7 +10657,7 @@ MonoBehaviour:
     type: 3}
   boundariesLayerMask:
     serializedVersion: 2
-    m_Bits: 1591
+    m_Bits: 256
   shell: {fileID: 5409530, guid: 008ecb1b70bec724fa2cd34255b0d8f8, type: 3}
   fireTransform: {fileID: 435794}
   aimSlider: {fileID: 11407922}

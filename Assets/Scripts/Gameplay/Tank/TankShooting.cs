@@ -9,7 +9,6 @@ namespace Tanks
     {
         private const string FIRE_BUTTON = "Fire1";
         private const string AIRSTRIKE_BUTTON = "Fire3";
-        private const string BOUNDARIES_LAYER = "Boundaries";
 
         [Header("airstrike configs")]
         public GameObject airStrikePrefab;
@@ -145,7 +144,11 @@ namespace Tanks
 
                 if (Physics.Raycast(ray, out hit))
                 {
-                    if (LayerMask.LayerToName(hit.collider.gameObject.layer) == BOUNDARIES_LAYER)
+                    // compare hit layer to boundaries layer using ints, if they match do nothing, otherwise fire an airstrike
+                    int hitLayerValue = hit.collider.gameObject.layer;
+                    int boundaryLayerValue = (int)Mathf.Log(boundariesLayerMask.value, 2);
+
+                    if (hitLayerValue == boundaryLayerValue)
                     {
                         return;
                     }
