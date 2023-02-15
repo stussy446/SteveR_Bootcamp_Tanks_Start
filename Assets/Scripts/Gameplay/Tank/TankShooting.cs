@@ -9,10 +9,13 @@ namespace Tanks
     {
         private const string FIRE_BUTTON = "Fire1";
         private const string AIRSTRIKE_BUTTON = "Fire3";
+        private const string BOUNDARIES_LAYERMASK = "Boundaries";
 
+        [Header("airstrike configs")]
+        public GameObject airStrikePrefab;
+        public LayerMask boundariesLayerMask;
 
         public Rigidbody shell;
-        public GameObject airStrike;
         public Transform fireTransform;
         public Slider aimSlider;
         public AudioSource shootingAudio;
@@ -140,7 +143,10 @@ namespace Tanks
                 RaycastHit hit; 
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-                if (Physics.Raycast(ray, out hit))
+                // sets layermask as everything except for the boundaries
+                boundariesLayerMask = ~LayerMask.GetMask(BOUNDARIES_LAYERMASK);
+
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity, boundariesLayerMask))
                 {
                     photonView.RPC
                         (
@@ -148,8 +154,6 @@ namespace Tanks
                         RpcTarget.All,
                         hit.point
                         );
-                    //GameObject airstrikeInstance = Instantiate(airStrike, hit.point, Quaternion.identity);
-                    //Destroy(airstrikeInstance, 1.5f);
                 }
             }
         }
@@ -157,8 +161,9 @@ namespace Tanks
         [PunRPC]
         private void HandleAirStrike(Vector3 target)
         {
-            GameObject airStrikeInstance = Instantiate(airStrike, target, Quaternion.identity);
+            GameObject airStrikeInstance = Instantiate(airStrikePrefab, target, Quaternion.identity);
             Destroy(airStrikeInstance, 1.5f);
         }
+
     }
 }
